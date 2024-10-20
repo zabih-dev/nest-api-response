@@ -53,7 +53,7 @@ And the `ValidationErrorDto` is used for handling class validation errors.
 
 ```typescript
 export class ValidationErrorDto {
-  filed: string;
+  field: string;
   messages: string[];
 }
 ```
@@ -163,11 +163,11 @@ In the case of a `validation failure`, the response will be like this:
   "message": "Validation failed",
   "errors": [
     {
-      "filed": "email",
+      "field": "email",
       "messages": ["email should not be empty", "email must be an email"]
     },
     {
-      "filed": "password",
+      "field": "password",
       "messages": ["password should not be empty", "password must be a string"]
     }
   ],

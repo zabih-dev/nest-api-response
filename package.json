@@ -1,6 +1,6 @@
 {
   "name": "@zabih-dev/nest-api-response",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "API Response Wrapper Library for NestJS",
   "author": "zabih-dev <https://github.com/zabih-dev>",
   "repository": "https://github.com/zabih-dev/nest-api-response",

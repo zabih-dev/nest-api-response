@@ -2,13 +2,13 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class ValidationErrorDto {
   @ApiProperty()
-  filed: string;
+  field: string;
 
   @ApiProperty()
   messages: string[];
 }
 
-export class ApiResponseDto<TData> {
+export class ApiResponseDto<TData = any> {
   @ApiProperty()
   readonly success: boolean = true;
 

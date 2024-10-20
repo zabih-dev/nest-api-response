@@ -14,7 +14,7 @@ export class ApiValidationPipe extends ValidationPipe {
     options.whitelist = true;
     options.exceptionFactory = (errors: ValidationError[] = []) => {
       const formattedErrors = errors.map((error) => ({
-        filed: error.property,
+        field: error.property,
         messages: Object.values(error.constraints ?? []),
       }));
       return new BadRequestException({

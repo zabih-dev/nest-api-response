@@ -2,7 +2,6 @@ import {
   CallHandler,
   ExecutionContext,
   HttpException,
-  HttpStatus,
   Injectable,
   NestInterceptor,
   Type,
@@ -11,6 +10,7 @@ import { Reflector } from '@nestjs/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { RESPONSE_TYPE, STANDARD_RESPONSE_TYPE_KEY } from './constants';
 import { ApiResponseDto } from './dto';
+import { ApiExceptionFilter } from './api.exception';
 
 @Injectable()
 export class ApiResponseInterceptor implements NestInterceptor {
@@ -53,27 +53,9 @@ export class ApiResponseInterceptor implements NestInterceptor {
   }
 
   errorHandler(exception: HttpException, context: ExecutionContext) {
+    const apiResponse = ApiExceptionFilter.handleException(exception, context);
     const ctx = context.switchToHttp();
     const response = ctx.getResponse();
-    let exResponse;
-    try {
-      exResponse = exception.getResponse();
-    } catch {}
-    const errors = exResponse?.errors ?? null;
-
-    const statusCode =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
-
-    response.status(statusCode).json(
-      new ApiResponseDto({
-        success: false,
-        statusCode,
-        message: exception.message,
-        errors: errors,
-        data: null,
-      }),
-    );
+    response.status(apiResponse.statusCode).json(apiResponse);
   }
 }
